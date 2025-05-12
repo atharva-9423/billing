@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Sai Tailors | Services</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-scissors"></i>
+        <h2>Om Sai Tailors</h2>
+      </div>
+      <nav class="menu">
+        <a href="index.html"><i class="fas fa-file-invoice"></i> <span>New Bill</span></a>
+        <a href="history.html"><i class="fas fa-history"></i> <span>History</span></a>
+        <a href="customers.html"><i class="fas fa-users"></i> <span>Customers</span></a>
+        <a href="services.html" class="active"><i class="fas fa-tshirt"></i> <span>Services</span></a>
+        <a href="reports.html"><i class="fas fa-chart-line"></i> <span>Reports</span></a>
+        <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
+      </nav>
+      <div class="user-profile">
+        <div class="avatar">OST</div>
+        <div class="user-info">
+          <h4>Om Sai Tailors</h4>
+          <p>Admin</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="top-bar">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="service-search" placeholder="Search services...">
+        </div>
+        <div class="actions">
+          <button class="btn btn-light"><i class="fas fa-bell"></i></button>
+          <button class="btn btn-light"><i class="fas fa-question-circle"></i></button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-header">
+          <h1>Services Management</h1>
+          <button id="add-service-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Service</button>
+        </div>
+
+        <div class="card services-container">
+          <div class="no-services" id="no-services-message" style="display: none;">
+            <i class="fas fa-tshirt fa-3x"></i>
+            <h3>No Services Yet</h3>
+            <p>You haven't added any services yet. Start by creating your first service.</p>
+            <button id="add-first-service-btn" class="btn btn-primary">Add First Service</button>
+          </div>
+          
+          <table class="services-table" id="services-table">
+            <thead>
+              <tr>
+                <th>Service Type</th>
+                <th>Garment</th>
+                <th>Default Price (₹)</th>
+                <th>Delivery Time (Days)</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="services-list">
+              <!-- Services will be populated here by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card service-categories">
+          <h3>Service Categories</h3>
+          <div class="category-list" id="category-list">
+            <!-- Categories will be populated here by JavaScript -->
+          </div>
+          <div class="category-actions">
+            <input type="text" id="new-category" placeholder="New category name" class="form-control">
+            <button id="add-category-btn" class="btn btn-outline"><i class="fas fa-plus"></i> Add Category</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Service Modal -->
+  <div id="service-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Service</h2>
+        <span class="close" data-modal="service-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="service-form">
+          <input type="hidden" id="service-id">
+          
+          <div class="form-group">
+            <label for="service-type">Service Type</label>
+            <select id="service-type" class="form-control" required>
+              <option value="">Select Service Type</option>
+              <option value="stitching">Stitching</option>
+              <option value="alteration">Alteration</option>
+              <option value="repair">Repair</option>
+              <!-- More options will be added dynamically -->
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="garment-type">Garment Type</label>
+            <select id="garment-type" class="form-control" required>
+              <option value="">Select Garment Type</option>
+              <option value="shirt">Shirt</option>
+              <option value="pants">Pants</option>
+              <option value="suit">Suit</option>
+              <option value="dress">Dress</option>
+              <!-- More options will be added dynamically -->
+            </select>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="default-price">Default Price (₹)</label>
+              <input type="number" id="default-price" class="form-control" min="0" step="1" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="delivery-days">Delivery Time (Days)</label>
+              <input type="number" id="delivery-days" class="form-control" min="1" step="1" value="5" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" rows="3"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="service-status">Status</label>
+            <select id="service-status" class="form-control" required>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="delete-service" class="btn btn-delete"><i class="fas fa-trash"></i> Delete</button>
+        <button id="save-service" class="btn btn-primary">Save Service</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Management Modal -->
+  <div id="data-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Data Management</h2>
+        <span class="close" data-modal="data-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Manage your app data for better reliability and to prevent data loss.</p>
+        
+        <div class="form-group">
+          <h4>Manual Backup & Restore</h4>
+          <div class="backup-actions">
+            <button id="export-data" class="btn btn-primary"><i class="fas fa-download"></i> Export Data</button>
+            <button id="import-data-btn" class="btn btn-outline"><i class="fas fa-upload"></i> Import Data</button>
+            <input type="file" id="import-data-file" accept=".json" class="hidden-file-input">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <h4>Automatic Backups</h4>
+          <p>The system automatically creates backups every 5 minutes. You can restore from any of these backups.</p>
+          <div id="backup-list" class="backup-list">
+            <div class="no-backups" style="padding: 1rem; text-align: center;">
+              <p>No automatic backups available yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="create-backup" class="btn btn-primary">Create New Backup Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="alerts.js"></script>
+  <script src="services.js"></script>
+</body>
+</html>

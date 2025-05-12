@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Sai Tailors | Customer Management</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-scissors"></i>
+        <h2>Om Sai Tailors</h2>
+      </div>
+      <nav class="menu">
+        <a href="index.html"><i class="fas fa-file-invoice"></i> <span>New Bill</span></a>
+        <a href="history.html"><i class="fas fa-history"></i> <span>History</span></a>
+        <a href="customers.html" class="active"><i class="fas fa-users"></i> <span>Customers</span></a>
+        <a href="services.html"><i class="fas fa-tshirt"></i> <span>Services</span></a>
+        <a href="reports.html"><i class="fas fa-chart-line"></i> <span>Reports</span></a>
+        <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
+      </nav>
+      <div class="user-profile">
+        <div class="avatar">OST</div>
+        <div class="user-info">
+          <h4>Om Sai Tailors</h4>
+          <p>Admin</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="top-bar">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="customer-search" placeholder="Search customers by name, phone...">
+        </div>
+        <div class="actions">
+          <button class="btn btn-light"><i class="fas fa-bell"></i></button>
+          <button class="btn btn-light"><i class="fas fa-question-circle"></i></button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-header">
+          <h1>Customer Management</h1>
+          <button id="add-customer-btn" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Customer</button>
+        </div>
+
+        <div class="card customer-list-container">
+          <div class="no-customers" id="no-customers-message">
+            <i class="fas fa-users fa-3x"></i>
+            <h3>No Customers Yet</h3>
+            <p>Your customer list will appear here once you add them.</p>
+            <button id="add-first-customer-btn" class="btn btn-primary">Add First Customer</button>
+          </div>
+          
+          <table class="customer-table" id="customer-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Total Orders</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customer-list">
+              <!-- Customer list will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Customer Modal -->
+  <div id="customer-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Customer</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="customer-form">
+          <input type="hidden" id="customer-id">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" class="form-control" placeholder="Add any specific notes, preferences or measurements"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="delete-customer" class="btn btn-delete"><i class="fas fa-trash"></i> Delete</button>
+        <button type="button" id="save-customer" class="btn btn-primary"><i class="fas fa-save"></i> Save Customer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Customer Orders Modal -->
+  <div id="orders-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Orders for <span id="customer-name-title"></span></h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="no-orders" id="no-orders-message">
+          <i class="fas fa-file-invoice fa-3x"></i>
+          <h3>No Orders Yet</h3>
+          <p>This customer doesn't have any orders yet.</p>
+          <a href="index.html" class="btn btn-primary">Create New Invoice</a>
+        </div>
+        
+        <table class="orders-table" id="orders-table">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders-list">
+            <!-- Orders will be populated here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="alerts.js"></script>
+  <script src="customers.js"></script>
+</body>
+</html>

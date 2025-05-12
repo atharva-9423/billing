@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Om Sai Tailors | Invoice History</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-scissors"></i>
+        <h2>Om Sai Tailors</h2>
+      </div>
+      <nav class="menu">
+        <a href="index.html"><i class="fas fa-file-invoice"></i> <span>New Bill</span></a>
+        <a href="history.html" class="active"><i class="fas fa-history"></i> <span>History</span></a>
+        <a href="customers.html"><i class="fas fa-users"></i> <span>Customers</span></a>
+        <a href="services.html"><i class="fas fa-tshirt"></i> <span>Services</span></a>
+        <a href="reports.html"><i class="fas fa-chart-line"></i> <span>Reports</span></a>
+        <a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a>
+      </nav>
+      <div class="user-profile">
+        <div class="avatar">OST</div>
+        <div class="user-info">
+          <h4>Om Sai Tailors</h4>
+          <p>Admin</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="top-bar">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="history-search" placeholder="Search invoices by number, customer name...">
+        </div>
+        <div class="actions">
+          <button class="btn btn-light"><i class="fas fa-bell"></i></button>
+          <button class="btn btn-light"><i class="fas fa-question-circle"></i></button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-header">
+          <h1>Invoice History</h1>
+          <div class="filter-options">
+            <select id="filter-status" class="form-control">
+              <option value="all">All Statuses</option>
+              <option value="paid">Paid</option>
+              <option value="pending">Pending</option>
+              <option value="draft">Draft</option>
+            </select>
+            <select id="filter-date" class="form-control">
+              <option value="all">All Time</option>
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+              <option value="year">This Year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card history-container">
+          <div class="no-invoices" id="no-invoices-message">
+            <i class="fas fa-file-invoice fa-3x"></i>
+            <h3>No Invoices Yet</h3>
+            <p>Your invoice history will appear here once you generate bills.</p>
+            <a href="index.html" class="btn btn-primary">Create New Invoice</a>
+          </div>
+          
+          <table class="invoice-history-table" id="invoice-history-table">
+            <thead>
+              <tr>
+                <th>Invoice #</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="invoice-history">
+              <!-- Invoice history will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Invoice Modal -->
+  <div id="invoice-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Invoice #<span id="invoice-number">0001</span></h2>
+        <span class="close" data-modal="invoice-modal">&times;</span>
+      </div>
+      <div class="modal-body" id="invoice-preview">
+        <!-- Invoice content will be inserted here -->
+      </div>
+      <div class="modal-footer">
+        <button id="delete-invoice" class="btn btn-delete"><i class="fas fa-trash"></i> Delete</button>
+        <button id="share-whatsapp" class="btn btn-outline"><i class="fab fa-whatsapp"></i> Share via WhatsApp</button>
+        <button id="print-invoice" class="btn btn-primary"><i class="fas fa-print"></i> Print Invoice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Management Modal -->
+  <div id="data-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Data Management</h2>
+        <span class="close" data-modal="data-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>Manage your app data for better reliability and to prevent data loss.</p>
+        
+        <div class="form-group">
+          <h4>Manual Backup & Restore</h4>
+          <div class="backup-actions">
+            <button id="export-data" class="btn btn-primary"><i class="fas fa-download"></i> Export Data</button>
+            <button id="import-data-btn" class="btn btn-outline"><i class="fas fa-upload"></i> Import Data</button>
+            <input type="file" id="import-data-file" accept=".json" class="hidden-file-input">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <h4>Automatic Backups</h4>
+          <p>The system automatically creates backups every 5 minutes. You can restore from any of these backups.</p>
+          <div id="backup-list" class="backup-list">
+            <div class="no-backups" style="padding: 1rem; text-align: center;">
+              <p>No automatic backups available yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="create-backup" class="btn btn-primary">Create New Backup Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="alerts.js"></script>
+  <script src="history.js"></script>
+</body>
+</html>
